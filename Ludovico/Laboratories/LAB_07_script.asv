@@ -66,8 +66,6 @@ position                = 1e-2*[10,0,0;0,10,0;-10,0,0;0,-10,0;0,0,15;...
 % SRP Perturbance
 P           = F_e/c;                %[N/m^2]    Solar radiation pressure
 
-disp("SRP block implemented");
-
 % Magnetic Perturbance
 Theta_m     = deg2rad(11.5);        %[rad]      Magnetic field inclination
 j_B         = [0.01;0.05;0.01];     %[A*m^2]    S/C Magetic momentum
@@ -75,26 +73,35 @@ g_01        = -29404.8;             %[-]        Gaussian
 g_11        = -1450.9;              %[-]        Gaussian
 h_11        = 4652.5;               %[-]        Gaussian
 
-disp("Magnetic Perturbance block implemented");
-
 
 %% Sensors
 
 % Gyroscope
-Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
-Gyroscope.Gain                      = 1;                                    %[rad]  Gyroscope gain
-Gyroscope.sample_time               = 0.1;                                  %[s]    Gyroscope sampling time 
-Gyroscope.ARW_standard_deviation    = 0.1;                                  %[??]   Gyroscope ARW standard deviation
-Gyroscope.ARW_variance              = Gyroscope.ARW_standard_deviation^2;   %[??]   Gyroscope ARW variance
-Gyroscope.ARW_mean_value            = 0;                                    %[-]    Gyroscope ARW mean value
+Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad] Misallignement Matrix
+Gyroscope.Gain                      = 1;                                    %[rad] Gyroscope gain
+Gyroscope.sample_time               = 0.1;                                  %[s] Gyroscope sampling time 
+Gyroscope.ARW_standard_deviation    = 0.1;                                  %[??] Gyroscope ARW standard deviation
+Gyroscope.ARW_variance              = Gyroscope.ARW_standard_deviation^2;   %[??] Gyroscope ARW variance
+Gyroscope.ARW_mean_value            = 0;                                    %[-] Gyroscope ARW mean value
 Gyroscope.bias_gyro                 = 0;
 
-disp("Gyroscope block implemented");
+Misalignment_matrix= [1,0,0;0,1,0;0,0,1];
+Gain_gyroscope = 1;
+Sample_gyroscope =0.1;
+Bias_gyroscope = 0;
+ARW_standard_deviation =0.1;
 
-% Horizon Sensor
-HS.Misalignment_matrix              = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
-HS.FOV                              = 1;                                    %[rad]  Horizon sensor field of view
+Gyroscope = Gyroscope(Misalignment_matrix, Gain_gyroscope, Sample_gyroscope,Bias_gyroscope,ARW_standard_deviation);
 
-disp("Horizon sensor block implemented");
 
-%% 
+%% Horizon Sensor
+
+HS.Misalignment_matrix = [1,0,0;0,1,0;0,0,1];
+FOV = 1;
+
+%%
+% sum(out.momentum_SRP(:,:,1000))
+
+
+
+%% Plots
