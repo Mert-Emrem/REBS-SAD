@@ -21,7 +21,7 @@ epsilon=deg2rad(23.45);
 I = 10^-2*diag([100.9,25.1,91.6]);
 
 % Initial Conditions
-w0 = [0;0;n];
+w0 = [0;0;0.01];
 A0 = eye(3,3);
 
 % Ex. Table
@@ -47,6 +47,19 @@ h_11 = 4652.5;
 
 j_B = [0.01;0.05;0.01];
 
+Misalignment_matrix= [1,0,0;0,1,0;0,0,1];
+Gain_gyroscope = 1;
+Sample_gyroscope =0.1;
+Bias_gyroscope = 0;
+ARW_standard_deviation =0.1;
+
+Gyroscope = Gyroscope(Misalignment_matrix, Gain_gyroscope, Sample_gyroscope,Bias_gyroscope,ARW_standard_deviation);
+
+
+%% Horizon Sensor
+
+HS.Misalignment_matrix = [1,0,0;0,1,0;0,0,1];
+FOV = 1;
 
 %%
 sum(out.momentum_SRP(:,:,1000))
