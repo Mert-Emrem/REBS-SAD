@@ -34,13 +34,13 @@ epsilon     = 0.4093;           %[rad]          Ecliptic inclination [CHECK NAME
 % Parameters needed in the Simulink model to determine the orbit, the
 % behaviour of both the spacecraft and the celestial bodies.
 
-e       = 0.2;                  %[-]        Eccentricity
+e       = 0;                    %[-]        Eccentricity
 a       = 6.843e6;              %[m]        Semi-Major Axis
 i       = 0.1;                  %[rad]      Inclination
 n       = sqrt(G*M_Earth/a^3);  %[rad/s]    Mean angular velocity
 
 % Initial Conditions
-w0      = [0;0;n];              %[rad/s]    Initial angular velocity
+w0      = [0;0;0.01];           %[rad/s]    Initial angular velocity
 A0      = eye(3,3);             %[rad]      Initial attitude matrix
 theta0  = 0;                    %[rad]      Initial angle on obrit
 
