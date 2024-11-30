@@ -84,7 +84,7 @@ disp("Magnetic Perturbance block implemented");
 Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
 Gyroscope.Gain                      = 1;                                    %[rad]  Gyroscope gain
 Gyroscope.sample_time               = 0.1;                                  %[s]    Gyroscope sampling time 
-Gyroscope.ARW_standard_deviation    = 0.1;                                  %[??]   Gyroscope ARW standard deviation
+Gyroscope.ARW_standard_deviation    = 0.001;                                %[??]   Gyroscope ARW standard deviation
 Gyroscope.ARW_variance              = Gyroscope.ARW_standard_deviation^2;   %[??]   Gyroscope ARW variance
 Gyroscope.ARW_mean_value            = 0;                                    %[-]    Gyroscope ARW mean value
 Gyroscope.bias_gyro                 = 0;
