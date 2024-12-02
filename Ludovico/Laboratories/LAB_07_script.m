@@ -77,7 +77,12 @@ h_11        = 4652.5;               %[-]        Gaussian
 
 disp("Magnetic Perturbance block implemented");
 
+% Drag Perturbance
 
+C_d = 2.1;                          %[-]        Drag coefficient- range between 1.5and 2.5
+A1 = 0.02;
+A2 = A1;
+A3 = A1;
 %% Sensors
 
 % Gyroscope
@@ -106,4 +111,4 @@ alpha_2 =0.5;
 %% PLOTS
 
 %Plot orbit
-plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
+% plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))

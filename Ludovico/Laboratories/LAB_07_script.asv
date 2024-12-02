@@ -34,13 +34,13 @@ epsilon     = 0.4093;           %[rad]          Ecliptic inclination [CHECK NAME
 % Parameters needed in the Simulink model to determine the orbit, the
 % behaviour of both the spacecraft and the celestial bodies.
 
-e       = 0.2;                  %[-]        Eccentricity
+e       = 0;                    %[-]        Eccentricity
 a       = 6.843e6;              %[m]        Semi-Major Axis
 i       = 0.1;                  %[rad]      Inclination
 n       = sqrt(G*M_Earth/a^3);  %[rad/s]    Mean angular velocity
 
 % Initial Conditions
-w0      = [0;0;n];              %[rad/s]    Initial angular velocity
+w0      = [0;0;0.01];           %[rad/s]    Initial angular velocity
 A0      = eye(3,3);             %[rad]      Initial attitude matrix
 theta0  = 0;                    %[rad]      Initial angle on obrit
 
@@ -66,6 +66,8 @@ position                = 1e-2*[10,0,0;0,10,0;-10,0,0;0,-10,0;0,0,15;...
 % SRP Perturbance
 P           = F_e/c;                %[N/m^2]    Solar radiation pressure
 
+disp("SRP block implemented");
+
 % Magnetic Perturbance
 Theta_m     = deg2rad(11.5);        %[rad]      Magnetic field inclination
 j_B         = [0.01;0.05;0.01];     %[A*m^2]    S/C Magetic momentum
@@ -73,35 +75,40 @@ g_01        = -29404.8;             %[-]        Gaussian
 g_11        = -1450.9;              %[-]        Gaussian
 h_11        = 4652.5;               %[-]        Gaussian
 
+disp("Magnetic Perturbance block implemented");
 
+% Drag Perturbance
+
+C_d = 2.1;                          %[-]        Drag coefficient- range between 1.5and 2.5
+A1 = 0.02;
+A2 = A1;
+A3 = A1;
 %% Sensors
 
 % Gyroscope
-Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad] Misallignement Matrix
-Gyroscope.Gain                      = 1;                                    %[rad] Gyroscope gain
-Gyroscope.sample_time               = 0.1;                                  %[s] Gyroscope sampling time 
-Gyroscope.ARW_standard_deviation    = 0.1;                                  %[??] Gyroscope ARW standard deviation
-Gyroscope.ARW_variance              = Gyroscope.ARW_standard_deviation^2;   %[??] Gyroscope ARW variance
-Gyroscope.ARW_mean_value            = 0;                                    %[-] Gyroscope ARW mean value
+Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
+Gyroscope.Gain                      = 1;                                    %[rad]  Gyroscope gain
+Gyroscope.sample_time               = 0.1;                                  %[s]    Gyroscope sampling time 
+Gyroscope.ARW_standard_deviation    = 0.001;                                %[??]   Gyroscope ARW standard deviation
+Gyroscope.ARW_variance              = Gyroscope.ARW_standard_deviation^2;   %[??]   Gyroscope ARW variance
+Gyroscope.ARW_mean_value            = 0;                                    %[-]    Gyroscope ARW mean value
 Gyroscope.bias_gyro                 = 0;
 
-Misalignment_matrix= [1,0,0;0,1,0;0,0,1];
-Gain_gyroscope = 1;
-Sample_gyroscope =0.1;
-Bias_gyroscope = 0;
-ARW_standard_deviation =0.1;
+disp("Gyroscope block implemented");
 
-Gyroscope = Gyroscope(Misalignment_matrix, Gain_gyroscope, Sample_gyroscope,Bias_gyroscope,ARW_standard_deviation);
+% Horizon Sensor
+HS.Misalignment_matrix              = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
+HS.FOV                              = 2*pi;                                 %[rad]  Horizon sensor field of view
 
+disp("Horizon sensor block implemented");
 
-%% Horizon Sensor
+%% Attitude Determination
+%
 
-HS.Misalignment_matrix = [1,0,0;0,1,0;0,0,1];
-FOV = 1;
+alpha_1 = 0.5;
+alpha_2 =0.5;
 
-%%
-% sum(out.momentum_SRP(:,:,1000))
+%% PLOTS
 
-
-
-%% Plots
+%Plot orbit
+% plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
