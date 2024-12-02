@@ -93,8 +93,17 @@ disp("Gyroscope block implemented");
 
 % Horizon Sensor
 HS.Misalignment_matrix              = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
-HS.FOV                              = 1;                                    %[rad]  Horizon sensor field of view
+HS.FOV                              = 2*pi;                                 %[rad]  Horizon sensor field of view
 
 disp("Horizon sensor block implemented");
 
-%% 
+%% Attitude Determination
+%
+
+alpha_1 = 0.5;
+alpha_2 =0.5;
+
+%% PLOTS
+
+%Plot orbit
+plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
