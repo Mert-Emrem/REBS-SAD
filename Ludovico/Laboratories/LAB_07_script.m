@@ -112,3 +112,4 @@ alpha_2 =0.5;
 
 %Plot orbit
 % plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
+
