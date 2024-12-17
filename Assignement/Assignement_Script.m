@@ -24,7 +24,7 @@ G           = 6.6743e-11;       %[m^3/(kg*s)]   Universal Gravity Constant
 R_Earth     = 6.378e6;          %[m]            Earth radius
 M_Earth     = 5.972e24;         %[kg]           Earth mass
 R_sun       = 149597870000;     %[m]            Sun radius
-w_Earth     = 7.29e-5;          %[rad/s]        Earth's angular velocity
+w_Earth     = 7.2916e-5;        %[rad/s]        Earth's angular velocity
 T_sun       = 365*24*60*60;     %[s]            Sun Period
 n_sun       = 2*pi/T_sun;       %[rad/s]        Sun mean angular velocity
 F_e         = 1358;             %[W/m^2]        Solar irradiance
@@ -73,25 +73,14 @@ P           = F_e/c;                %[N/m^2]    Solar radiation pressure
 disp("SRP block implemented");
 
 % Magnetic Perturbance
-Theta_m     = deg2rad(11.5);        %[rad]      Magnetic field inclination
-j_B         = [0.01;0.05;0.01];     %[A*m^2]    S/C Magetic momentum
-g_10        = -29404.8;             %[-]        Gaussian
-g_11        = -1450.9;              %[-]        Gaussian
-h_11        = 4652.5;               %[-]        Gaussian
+Theta_m     = deg2rad(11.5);            %[rad]      Magnetic field inclination
+j_B         = [0.01;0.05;0.01];         %[A*m^2]    S/C Magetic momentum
+g_10        = -29615e-9;                %[-]        Gaussian
+g_11        = -1728e-9;                 %[-]        Gaussian
+h_11        = 5186e-9;                  %[-]        Gaussian
+H0          = sqrt(g_10^2+g_11^2+h_11^2);
 
 disp("Magnetic Perturbance block implemented");
-
-i_b_fra = deg2rad(11.5);               %[rad]
-omega_e_fra = deg2rad(15.04)/3600;     %[rad/s]
-
-g10_fra = -29615*10^-9;
-g11_fra = - 1728*10^-9;
-h11_fra =   5186*10^-9;
-
-H0_fra = sqrt(g10_fra^2+g11_fra^2+h11_fra^2);
-
-m_fra = [0.01 0.05 0.01];              %[A*m^2]
-
 
 % Drag Perturbance
 
