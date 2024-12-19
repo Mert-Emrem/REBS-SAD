@@ -131,3 +131,11 @@ Gyro.A_pseudo_inv   =    [5/6           , -1/6          , -1/6;
 alpha_1 = 0.5;
 alpha_2 =0.5;
 
+<<<<<<< HEAD
+=======
+%% PLOTS
+
+%Plot orbit
+% plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
+
+>>>>>>> 16e1789a9cb2417a09b72025242679de3cbfb9c0
