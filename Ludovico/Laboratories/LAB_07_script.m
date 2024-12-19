@@ -1,6 +1,8 @@
 %% SPACECRAFT ATTITUDE DETERMINATION PROJECT
 %
-% AIM:
+% AIM: Simulate the attitude behaviour and determination of a 6U Cubesat in 
+% MEO, using Gyroscopes, Sun Sensors and an Horizon Sensor. Simulate the
+% attitude control using reaction wheels.
 %
 %
 % Made by: Bernasconi Ludovico, Emrem Mert, Richero Giovanni, Serlini Mariagiulia
@@ -42,7 +44,7 @@ n       = sqrt(G*M_Earth/a^3);  %[rad/s]    Mean angular velocity
 % Initial Conditions
 w0      = [0;0;0.01];           %[rad/s]    Initial angular velocity
 A0      = eye(3,3);             %[rad]      Initial attitude matrix
-theta0  = 0;                    %[rad]      Initial angle on obrit
+theta0  = 3/2*pi;               %[rad]      Initial angle on obrit
 
 %% Spacecraft specifics
 % Parameters that describes the constitution of the spacecraft, and its
@@ -84,6 +86,7 @@ A1 = 0.02;
 A2 = A1;
 A3 = A1;
 %% Sensors
+% Parameters that describes the behaviour and teh specifics of the sensors
 
 % Gyroscope
 Gyroscope.A_epsilon                 = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
@@ -99,17 +102,40 @@ disp("Gyroscope block implemented");
 % Horizon Sensor
 HS.Misalignment_matrix              = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
 HS.FOV                              = 2*pi;                                 %[rad]  Horizon sensor field of view
+HS.sample_time                      = 0.1;                                  %[s]    Gyroscope sampling time 
 
 disp("Horizon sensor block implemented");
 
+% Sun Sensor
+SunSensor.Misalignment_matrix              = [1,0,0;0,1,0;0,0,1];                  %[rad]  Misallignement Matrix
+SunSensor.FOV                              = 2*pi;                                 %[rad]  Horizon sensor field of view
+SunSensor.sample_time                      = 0.1;                                  %[s]    Gyroscope sampling time 
+
+disp("Sun sensor block implemented");
+
+%% Actuators
+% Parameters that describes the behaviour and specifics of the actuators
+
+% Gyroscopes (3 axis + diagonal config)
+Gyro.A              =    [1, 0, 0, 1/sqrt(3);
+                          0, 1, 0, 1/sqrt(3);
+                          0, 0, 1, 1/sqrt(3)]; 
+
+Gyro.A_pseudo_inv   =    [5/6           , -1/6          , -1/6;
+                         -1/6           ,  5/6          , -1/6;
+                         -1/6           , -1/6          ,  5/6;
+                          1/(2*sqrt(3)) , 1/(2*sqrt(3)) , 1/(2*sqrt(3))];
+
 %% Attitude Determination
-%
 
 alpha_1 = 0.5;
 alpha_2 =0.5;
 
+<<<<<<< HEAD
+=======
 %% PLOTS
 
 %Plot orbit
 % plot3(out.r_N(:,1),out.r_N(:,2),out.r_N(:,3))
 
+>>>>>>> 16e1789a9cb2417a09b72025242679de3cbfb9c0
